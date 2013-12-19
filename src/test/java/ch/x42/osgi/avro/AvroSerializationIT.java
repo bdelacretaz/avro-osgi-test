@@ -9,6 +9,7 @@ import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -42,7 +43,7 @@ public class AvroSerializationIT {
 	}
 
 	@Test
-	public void testSerialization() {
+	public void testSerialization() throws IOException {
 		final AvroTestUser u = new AvroTestUser();
 		u.setName("NAME_" + random.nextInt());
 		u.setFavoriteNumber(random.nextInt());
@@ -53,7 +54,7 @@ public class AvroSerializationIT {
 		assertNotNull("Expecting non-null data", data);
 		assertTrue("Expecting non-empty data", data.length > 0);
 
-		final AvroTestUser copy = serializer.deserialize(data);
+		final AvroTestUser copy = serializer.deserialize(AvroTestUser.SCHEMA$, data);
 		assertNotNull("Expecting non-null copy", copy);
 		assertEquals("Expecting copy to match", u, copy);
 	}
