@@ -1,8 +1,0 @@
-{"namespace": "ch.x42.osgi.avro.generated",
- "type": "record",
- "name": "AvroTestUser",
- "fields": [
-     {"name": "name", "type": "string"},
-     {"name": "favorite_number",  "type": ["int", "null"]}
- ]
-}
