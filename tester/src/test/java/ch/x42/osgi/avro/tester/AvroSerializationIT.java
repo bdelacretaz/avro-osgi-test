@@ -1,4 +1,4 @@
-package ch.x42.osgi.avro;
+package ch.x42.osgi.avro.tester;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,6 +28,7 @@ public class AvroSerializationIT {
 
 	private final Random random = new Random(System.currentTimeMillis());
 	public static final String BUNDLE_FILENAME = "bundle.filename";
+	public static final String SERIALIZER_VERSION = "serializer.version";
 
 	@Inject
 	private AvroSerializer serializer;
@@ -35,11 +36,14 @@ public class AvroSerializationIT {
 	@Configuration
 	public Option[] config() {
 		final File bundleFile = new File(System.getProperty(BUNDLE_FILENAME, "BUNDLE_FILENAME_NOT_SET"));
+		final String serializerVersion = System.getProperty(SERIALIZER_VERSION, "SERIALIZER_VERSION_NOT_SET");
 
 		return options(
 				junitBundles(),
-				bundle(bundleFile.toURI().toString()),
-				mavenBundle("org.apache.felix", "org.apache.felix.scr", "1.6.2"));
+				mavenBundle("org.apache.felix", "org.apache.felix.scr", "1.6.2"),
+				mavenBundle("ch.x42.osgi", "avro-osgi-serializer", serializerVersion),
+                bundle(bundleFile.toURI().toString())
+		);
 	}
 
 	@Test
