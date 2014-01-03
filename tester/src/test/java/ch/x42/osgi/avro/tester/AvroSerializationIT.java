@@ -48,18 +48,18 @@ public class AvroSerializationIT {
 
 	@Test
 	public void testSerialization() throws IOException {
-		final AvroTestUser u = new AvroTestUser();
-		u.setName("NAME_" + random.nextInt());
-		u.setFavoriteNumber(random.nextInt());
+        final AvroTestUser u = new AvroTestUser();
+        u.setName("NAME_" + random.nextInt());
+        u.setFavoriteNumber(random.nextInt());
 
-		assertEquals("Expecting equals to work", u, u);
+        assertEquals("Expecting equals to work", u, u);
 
-		final byte[] data = serializer.serialize(u);
-		assertNotNull("Expecting non-null data", data);
-		assertTrue("Expecting non-empty data", data.length > 0);
+        final byte[] data = serializer.serialize(u);
+        assertNotNull("Expecting non-null data", data);
+        assertTrue("Expecting non-empty data", data.length > 0);
 
-		final AvroTestUser copy = serializer.deserialize(AvroTestUser.SCHEMA$, data);
-		assertNotNull("Expecting non-null copy", copy);
-		assertEquals("Expecting copy to match", u, copy);
+        final AvroTestUser copy = serializer.deserialize(AvroTestUser.SCHEMA$, data, AvroTestUser.class.getClassLoader());
+        assertNotNull("Expecting non-null copy", copy);
+        assertEquals("Expecting copy to match", u, copy);
 	}
 }

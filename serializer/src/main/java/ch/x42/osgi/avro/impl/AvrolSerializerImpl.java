@@ -32,22 +32,33 @@ public class AvrolSerializerImpl implements AvroSerializer {
 
 	@SuppressWarnings("unchecked")
     @Override
-	public <T extends SpecificRecord> T deserialize(Schema schema, byte[] data) throws IOException {
-        if(data == null) {
-            throw new IllegalArgumentException("Null data");
+	public <T extends SpecificRecord> T deserialize(Schema schema, byte[] data, ClassLoader classLoader) 
+	throws IOException {
+	    
+        final ClassLoader oldCL = Thread.currentThread().getContextClassLoader();
+        try {
+            if(classLoader != null) {
+                Thread.currentThread().setContextClassLoader(classLoader);
+            }
+            
+            if(data == null) {
+                throw new IllegalArgumentException("Null data");
+            }
+            final ByteArrayInputStream stream = new ByteArrayInputStream(data);
+            final Decoder decoder = DecoderFactory.get().binaryDecoder(stream, null);
+            final SpecificDatumReader<T> reader = new SpecificDatumReader<T>(schema);
+            final Object result = reader.read(null, decoder);
+            if(!(result instanceof SpecificRecord)) {
+                throw new IOException(
+                        "Expected a SpecificRecord, got a " + result.getClass().getName()
+                        + " - this is usually caused by the avro deserializer not finding "
+                        + "the class that's being deserialized."
+                        );
+            }
+            return (T)result;
+        } finally {
+            Thread.currentThread().setContextClassLoader(oldCL);
         }
-        final ByteArrayInputStream stream = new ByteArrayInputStream(data);
-        final Decoder decoder = DecoderFactory.get().binaryDecoder(stream, null);
-        final SpecificDatumReader<T> reader = new SpecificDatumReader<T>(schema);
-        final Object result = reader.read(null, decoder);
-        if(!(result instanceof SpecificRecord)) {
-            throw new IOException(
-                    "Expected a SpecificRecord, got a " + result.getClass().getName()
-                    + " - this is usually caused by the avro deserializer not finding "
-                    + "the class that's being deserialized."
-                    );
-        }
-        return (T)result;
-	}
 
+	}
 }
