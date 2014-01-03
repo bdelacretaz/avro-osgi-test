@@ -30,7 +30,8 @@ public class AvrolSerializerImpl implements AvroSerializer {
         return os.toByteArray();
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public <T extends SpecificRecord> T deserialize(Schema schema, byte[] data) throws IOException {
         if(data == null) {
             throw new IllegalArgumentException("Null data");
@@ -38,7 +39,15 @@ public class AvrolSerializerImpl implements AvroSerializer {
         final ByteArrayInputStream stream = new ByteArrayInputStream(data);
         final Decoder decoder = DecoderFactory.get().binaryDecoder(stream, null);
         final SpecificDatumReader<T> reader = new SpecificDatumReader<T>(schema);
-        return reader.read(null, decoder);
+        final Object result = reader.read(null, decoder);
+        if(!(result instanceof SpecificRecord)) {
+            throw new IOException(
+                    "Expected a SpecificRecord, got a " + result.getClass().getName()
+                    + " - this is usually caused by the avro deserializer not finding "
+                    + "the class that's being deserialized."
+                    );
+        }
+        return (T)result;
 	}
 
 }

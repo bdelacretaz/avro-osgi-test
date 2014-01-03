@@ -21,7 +21,7 @@ import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 
 import ch.x42.osgi.avro.api.AvroSerializer;
-import ch.x42.osgi.avro.generated.AvroTestUser;
+import ch.x42.osgi.avro.tester.generated.AvroTestUser;
 
 @RunWith(PaxExam.class)
 public class AvroSerializationIT {
