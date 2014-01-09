@@ -55,7 +55,6 @@ public class AvroIpcIT {
 	    final HttpTransceiver client = new HttpTransceiver(url);
 	    
 	    final Ping proxy = (Ping)SpecificRequestor.getClient(Ping.class, client);
-        System.out.println("Client built, got proxy");
 
         final PingMessage m = new PingMessage();
         final String from = "This is " + getClass().getSimpleName() + "_" + random.nextInt();
