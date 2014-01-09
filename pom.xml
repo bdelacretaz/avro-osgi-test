@@ -8,5 +8,7 @@
     <modules>
         <module>serializer</module>
         <module>tester</module>
+        <module>rpc-protocol</module>
+        <module>rpc-server</module>
     </modules>
 </project>

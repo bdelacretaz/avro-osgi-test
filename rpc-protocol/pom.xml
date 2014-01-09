@@ -2,12 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ch.x42.osgi</groupId>
-    <artifactId>avro-osgi-serializer</artifactId>
+    <artifactId>avro-osgi-rpc-protocol</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <description>
-        OSGi bundle that provides a simple Avro serializer service.
-        Also embeds the avro-ipc jar and exports useful packages from that.
+        OSGi bundle that defines an Avro RPC protocol.
     </description>
     <build>
         <plugins>
@@ -59,41 +58,26 @@
                 <configuration>
                 <instructions>
                     <Export-Package>
-                        ch.x42.osgi.avro.api,
-                        org.apache.avro,
-                        org.apache.avro.generic,
-                        org.apache.avro.data,
-                        org.apache.avro.specific,
-                        org.apache.avro.ipc,
-                        org.apache.avro.ipc.generic,
-                        org.apache.avro.ipc.specific
+                        ch.x42.osgi.avro.protocols.ping
                     </Export-Package>
-                    <Private-Package>
-                        ch.x42.osgi.avro.impl.*
-                    </Private-Package>
-                    
-                    <Import-Package>
-                        !org.joda.time.*,
-                        !org.tukaani.xz,
-                        !org.xerial.snappy,
-                        !sun.misc,
-                        !javax.inject,
-                        !org.apache.velocity.*,
-                        !org.jboss.netty.*,
-                        !org.mortbay.jetty.*,
-                        !org.mortbay.resource.*,
-                        *
-                    </Import-Package>
-                    <Embed-Dependency>
-                        avro,
-                        avro-ipc,
-                        jackson-core-asl,
-                        jackson-mapper-asl,
-                        paranamer,
-                        commons-compress
-                    </Embed-Dependency>
                 </instructions>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>1.7.5</version>
+                <executions>
+                    <execution>
+                        <id>schemas</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                            <goal>protocol</goal>
+                            <goal>idl-protocol</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -121,12 +105,6 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.4</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>1.7.6-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.avro</groupId>

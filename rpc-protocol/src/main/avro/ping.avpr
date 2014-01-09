@@ -1,0 +1,20 @@
+{"namespace": "ch.x42.osgi.avro.protocols.ping",
+ "protocol": "Ping",
+
+ "types": [
+     {"name": "PingMessage", "type": "record",
+      "fields": [
+          {"name": "from", "type": "string"},
+          {"name": "comment", "type": "string"}
+      ]
+     }
+ ],
+
+ "messages": {
+     "ping": {
+         "request": [{"name": "pingMessage", "type": "PingMessage"}],
+         "response": "string"
+     }
+ }
+}
+
