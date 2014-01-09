@@ -82,6 +82,7 @@
                         !org.jboss.netty.*,
                         !org.mortbay.jetty.*,
                         !org.mortbay.resource.*,
+                        javax.servlet.*;resolution:=optional,
                         *
                     </Import-Package>
                     <Embed-Dependency>

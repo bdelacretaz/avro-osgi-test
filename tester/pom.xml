@@ -39,7 +39,7 @@
                     <systemProperties>
                         <org.ops4j.pax.logging.DefaultServiceLog.level>${org.ops4j.pax.logging.DefaultServiceLog.level}</org.ops4j.pax.logging.DefaultServiceLog.level>
                         <bundle.filename>${basedir}/target/${project.build.finalName}.jar</bundle.filename>
-                        <serializer.version>${project.version}</serializer.version>
+                        <testbundles.version>${project.version}</testbundles.version>
                     </systemProperties>
                 </configuration>
             </plugin>
