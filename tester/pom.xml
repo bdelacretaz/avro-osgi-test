@@ -111,6 +111,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>ch.x42.osgi</groupId>
+            <artifactId>avro-osgi-rpc-protocol</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.x42.osgi</groupId>
+            <artifactId>avro-osgi-rpc-server</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.6.4</version>
