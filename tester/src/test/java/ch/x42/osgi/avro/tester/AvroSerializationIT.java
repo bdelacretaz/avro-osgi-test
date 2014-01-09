@@ -35,7 +35,7 @@ public class AvroSerializationIT {
 		return options(
 				junitBundles(),
 				mavenBundle("org.apache.felix", "org.apache.felix.scr", "1.6.2"),
-				mavenBundle("ch.x42.osgi", "avro-osgi-serializer", T.TEST_BUNDLES_VERSION),
+				mavenBundle("ch.x42.osgi", "avro-osgi-services", T.TEST_BUNDLES_VERSION),
                 bundle(T.BUNDLE_FILE.toURI().toString())
 		);
 	}

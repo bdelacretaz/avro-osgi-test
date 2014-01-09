@@ -106,7 +106,7 @@
         </dependency>
         <dependency>
             <groupId>ch.x42.osgi</groupId>
-            <artifactId>avro-osgi-serializer</artifactId>
+            <artifactId>avro-osgi-services</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

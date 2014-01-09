@@ -38,7 +38,7 @@ public class AvroIpcIT {
 				junitBundles(),
 				mavenBundle("org.apache.felix", "org.apache.felix.scr", "1.6.2"),
                 mavenBundle("org.apache.felix", "org.apache.felix.http.jetty", "2.2.2"),
-				mavenBundle("ch.x42.osgi", "avro-osgi-serializer", T.TEST_BUNDLES_VERSION),
+				mavenBundle("ch.x42.osgi", "avro-osgi-services", T.TEST_BUNDLES_VERSION),
                 mavenBundle("ch.x42.osgi", "avro-osgi-rpc-protocol", T.TEST_BUNDLES_VERSION),
                 mavenBundle("ch.x42.osgi", "avro-osgi-rpc-server", T.TEST_BUNDLES_VERSION),
                 bundle(T.BUNDLE_FILE.toURI().toString())

@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>serializer</module>
+        <module>avro-osgi-services</module>
         <module>tester</module>
         <module>rpc-protocol</module>
         <module>rpc-server</module>
